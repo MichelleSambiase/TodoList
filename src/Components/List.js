@@ -19,7 +19,6 @@ const List = (props) => {
     list: {
       boxShadow: "0px 0px 10px 0px #b59696",
       width:'100%',
-      height:'100%',
       borderRadius: "10px",
       padding: 0,
       display: "flex",
