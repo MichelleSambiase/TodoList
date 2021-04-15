@@ -7,7 +7,7 @@ import Buttons from "./Components/Buttons";
 import CustomInput from "./Components/CustomInput";
 
 function App() {
-  const useStyles = makeStyles({
+  const useStyles = makeStyles(theme => ({
     root: {
       width: "100%",
       height: "100vh",
@@ -30,10 +30,17 @@ function App() {
       fontSize: "30px",
       color: "lightslategrey",
       boxShadow: "0px 0px 15px 0px #ddc6c6",
+      [theme.breakpoints.down('sm')]: {
+        width:"50%",
+        fontSize:"18px",
+        marginTop:'100px',
+      },
+      [theme.breakpoints.up('md')]:{
+        width: '50%',
+        marginTop: "150px"
+      }
     },
-
-
-  });
+  }));
 
   const [todo, setTodo] = useState();
   const [mostrarTodo, setMostrarTodo] = useState([]);

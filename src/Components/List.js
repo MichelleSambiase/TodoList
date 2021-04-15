@@ -4,7 +4,7 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { makeStyles, Card, ListItem, IconButton } from "@material-ui/core";
 
 const List = (props) => {
-  const useStyles = makeStyles({
+  const useStyles = makeStyles(theme => ({
     styleUL: {
       width: "100%",
       display: "flex",
@@ -16,9 +16,14 @@ const List = (props) => {
       width: "50%",
       overflowX:"hidden",
       boxShadow: "0px 0px 10px 0px #b59696",
+      [theme.breakpoints.down('sm')]:{
+         width:"60%" 
+      },
+      [theme.breakpoints.up('md')]:{
+        width: '80%',      
     },
+  },
     list: {
-      
       width:'100%',
       borderRadius: "10px",
       padding: 0,
@@ -39,7 +44,8 @@ const List = (props) => {
     iconButton: {
       color: "lightslategrey",
     },
-  });
+
+  }));
   const classes = useStyles();
   return (
     <div>
