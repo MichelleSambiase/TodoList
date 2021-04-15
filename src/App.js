@@ -91,7 +91,7 @@ function App() {
         <Container>
           <div className={classes.cardTitle}>
             <Card className={classes.title}>
-              <h1>TODO LIST</h1>
+              <h1>TO DO LIST</h1>
             </Card>
           </div>
 
