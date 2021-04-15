@@ -31,7 +31,7 @@ function App() {
       color: "lightslategrey",
       boxShadow: "0px 0px 15px 0px #ddc6c6",
       [theme.breakpoints.down('sm')]: {
-        width:"50%",
+        width:"80%",
         fontSize:"18px",
         marginTop:'100px',
       },
