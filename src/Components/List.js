@@ -11,13 +11,14 @@ const List = (props) => {
       justifyContent: "center",
     },
     listContainer: {
-      maxHeight: "300px",
+      height: "300px",
       overflow:'auto',
       width: "50%",
       overflowX:"hidden",
+      boxShadow: "0px 0px 10px 0px #b59696",
     },
     list: {
-      boxShadow: "0px 0px 10px 0px #b59696",
+      
       width:'100%',
       borderRadius: "10px",
       padding: 0,
