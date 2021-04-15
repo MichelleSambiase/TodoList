@@ -32,6 +32,7 @@ const List = (props) => {
       flexDirection: "column",
       justifyContent: "center",
       fontFamily: "Sacramento , cursive",
+      fontSize: '35px'
     },
     listItemStyle: {
       width: "100%",
