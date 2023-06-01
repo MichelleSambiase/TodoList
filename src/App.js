@@ -31,11 +31,11 @@ function App() {
       color: "lightslategrey",
       boxShadow: "0px 0px 15px 0px #ddc6c6",
       [theme.breakpoints.down('sm')]: {
-        width:"80%",
-        fontSize:"18px",
-        marginTop:'100px',
+        width: "80%",
+        fontSize: "18px",
+        marginTop: '100px',
       },
-      [theme.breakpoints.up('md')]:{
+      [theme.breakpoints.up('md')]: {
         width: '50%',
         marginTop: "150px"
       }
@@ -70,7 +70,6 @@ function App() {
   }
 
   function handleClickPermiso() {
-    //setPermiso(!permiso)
     if (permiso === false) {
       setPermiso(true);
     } else {
@@ -95,7 +94,7 @@ function App() {
             </Card>
           </div>
 
-          <CustomInput onChange={onChange}/>
+          <CustomInput onChange={onChange} />
 
           <Buttons
             handleClickPermiso={handleClickPermiso}

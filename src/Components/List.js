@@ -9,22 +9,23 @@ const List = (props) => {
       width: "100%",
       display: "flex",
       justifyContent: "center",
+      marginBottom: '20px'
     },
     listContainer: {
       height: "300px",
-      overflow:'auto',
+      overflow: 'auto',
       width: "50%",
-      overflowX:"hidden",
+      overflowX: "hidden",
       boxShadow: "0px 0px 10px 0px #b59696",
-      [theme.breakpoints.down('sm')]:{
-         width:"60%" 
+      [theme.breakpoints.down('sm')]: {
+        width: "60%"
       },
-      [theme.breakpoints.up('md')]:{
-        width: '80%',      
+      [theme.breakpoints.up('md')]: {
+        width: '80%',
+      },
     },
-  },
     list: {
-      width:'100%',
+      width: '100%',
       borderRadius: "10px",
       padding: 0,
       display: "flex",
@@ -48,30 +49,40 @@ const List = (props) => {
 
   }));
   const classes = useStyles();
+
+  function randomId() {
+    const uint32 = window.crypto.getRandomValues(new Uint32Array(1))[0];
+    console.log(uint32.toString(16));
+    return uint32.toString(16);
+  }
+
   return (
     <div>
       <div className={classes.styleUL}>
         <div className={classes.listContainer}>
           <ul className={classes.list}>
-            {props.lista.map((item, index) => (
-              <Card className={classes.listItemStyle} button variant="outlined">
-                <ListItem
-                  onClick={() => props.handleClickEliminarTodoItem(index)}
-                  className={classes.buttonDelete}
-                  key={item}
-                >
-                  {" "}
-                  {item}
-                  <IconButton className={classes.iconButton}>
-                    <HighlightOffIcon />
-                  </IconButton>{" "}
-                </ListItem>
-              </Card>
-            ))}
+            {props.lista.map((item, index) => {
+              return (
+                < Card key={randomId()} className={classes.listItemStyle} button variant="outlined" >
+                  <ListItem
+                    onClick={() => props.handleClickEliminarTodoItem(index)}
+                    className={classes.buttonDelete}
+                  >
+                    {" "}
+                    {item}
+                    <IconButton className={classes.iconButton}>
+                      <HighlightOffIcon />
+                    </IconButton>{" "}
+                  </ListItem>
+                </Card>
+
+              )
+            }
+            )}
           </ul>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
