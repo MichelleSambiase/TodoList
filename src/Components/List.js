@@ -52,38 +52,37 @@ const List = (props) => {
 
   function randomId() {
     const uint32 = window.crypto.getRandomValues(new Uint32Array(1))[0];
-    console.log(uint32.toString(16));
     return uint32.toString(16);
   }
 
   return (
-    <div>
-      <div className={classes.styleUL}>
-        <div className={classes.listContainer}>
-          <ul className={classes.list}>
-            {props.lista.map((item, index) => {
-              return (
-                < Card key={randomId()} className={classes.listItemStyle} button variant="outlined" >
-                  <ListItem
-                    onClick={() => props.handleClickEliminarTodoItem(index)}
-                    className={classes.buttonDelete}
-                  >
-                    {" "}
-                    {item}
-                    <IconButton className={classes.iconButton}>
-                      <HighlightOffIcon />
-                    </IconButton>{" "}
-                  </ListItem>
-                </Card>
-
-              )
-            }
-            )}
-          </ul>
-        </div>
+    <div className={classes.styleUL}>
+      <div data-cy='listBox' className={classes.listContainer}>
+        <ul className={classes.list}>
+          {props.lista.map((item, index) => {
+            return (
+              < Card key={randomId()} className={classes.listItemStyle} button variant="outlined" >
+                <ListItem
+                  onClick={() => props.handleClickEliminarTodoItem(index)}
+                  className={classes.buttonDelete}
+                >
+                  {" "}
+                  {item}
+                  <IconButton className={classes.iconButton}>
+                    <HighlightOffIcon />
+                  </IconButton>{" "}
+                </ListItem>
+              </Card>
+            )
+          }
+          )}
+        </ul>
       </div>
-    </div >
+    </div>
   );
 };
 
+
 export default List;
+
+

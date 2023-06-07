@@ -16,7 +16,7 @@ const CustomInput = (props) => {
         {" "}
         <Input
           type="text"
-          placeholder="Anota tus tareas."
+          placeholder="¡Anota tus tareas!"
           onChange={props.onChange}
         />
       </div>

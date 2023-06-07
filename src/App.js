@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { makeStyles, Container, Card } from "@material-ui/core";
 
@@ -42,23 +42,50 @@ function App() {
     },
   }));
 
-  const [todo, setTodo] = useState();
+  const [todo, setTodo] = useState('');
   const [mostrarTodo, setMostrarTodo] = useState([]);
   const [permiso, setPermiso] = useState(false);
+
 
   function onChange(e) {
     setTodo(e.target.value);
   }
 
   function handleClickTodo(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (permiso === true) {
-      setMostrarTodo(mostrarTodo.concat(todo));
+      setMostrarTodo(mostrarTodo.concat(todo))
+      localStorage.setItem('TodoItems', JSON.stringify(mostrarTodo.concat(todo)))
     }
   }
 
+
+
+  useEffect(() => {
+    const handleEnterKey = (e) => {
+      if (e.code === 'Enter') {
+        handleClickTodo()
+      }
+    };
+
+    document.addEventListener('keydown', handleEnterKey);
+
+    return () => {
+      // Eliminamos el event listener al desmontar el componente
+      document.removeEventListener('keydown', handleEnterKey);
+    }
+  }, []);
+
+
+  useEffect(() => {
+    const storedItems = JSON.parse(localStorage.getItem("TodoItems"))
+    if (storedItems) setMostrarTodo(mostrarTodo.concat(storedItems))
+  }, []);
+
+
   function handleClickEliminarTodo() {
     setMostrarTodo([]);
+    localStorage.removeItem('TodoItems')
   }
 
   function handleClickEliminarTodoItem(indice) {
@@ -85,30 +112,29 @@ function App() {
   };
   const classes = useStyles();
   return (
-    <div>
-      <div className={classes.root}>
-        <Container>
-          <div className={classes.cardTitle}>
-            <Card className={classes.title}>
-              <h1>TO DO LIST</h1>
-            </Card>
-          </div>
+    <div className={classes.root}>
+      <Container>
+        <div data-cy='title' className={classes.cardTitle}>
+          <Card className={classes.title}>
+            <h1>TO DO LIST</h1>
+          </Card>
+        </div>
 
-          <CustomInput onChange={onChange} />
+        <CustomInput onChange={onChange} />
 
-          <Buttons
-            handleClickPermiso={handleClickPermiso}
-            handleClickTodo={handleClickTodo}
-            handleClickOrdenarItem={handleClickOrdenarItem}
-            handleClickEliminarTodo={handleClickEliminarTodo}
-          />
-          <List
-            lista={mostrarTodo}
-            handleClickEliminarTodoItem={handleClickEliminarTodoItem}
-          />
-        </Container>
-      </div>
+        <Buttons
+          handleClickPermiso={handleClickPermiso}
+          handleClickTodo={handleClickTodo}
+          handleClickOrdenarItem={handleClickOrdenarItem}
+          handleClickEliminarTodo={handleClickEliminarTodo}
+        />
+        <List
+          lista={mostrarTodo}
+          handleClickEliminarTodoItem={handleClickEliminarTodoItem}
+        />
+      </Container>
     </div>
+
   );
 }
 
