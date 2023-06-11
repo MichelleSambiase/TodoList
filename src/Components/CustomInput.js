@@ -18,6 +18,7 @@ const CustomInput = (props) => {
           type="text"
           placeholder="¡Anota tus tareas!"
           onChange={props.onChange}
+          value={props.value}
         />
       </div>
     </div>

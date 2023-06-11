@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "/",
+    "baseUrl": "src",
     "target": "ES2016",
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"]

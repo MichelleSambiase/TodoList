@@ -55,11 +55,10 @@ function App() {
     if (e) e.preventDefault();
     if (permiso === true) {
       setMostrarTodo(mostrarTodo.concat(todo))
+      setTodo('')
       localStorage.setItem('TodoItems', JSON.stringify(mostrarTodo.concat(todo)))
     }
   }
-
-
 
   useEffect(() => {
     const handleEnterKey = (e) => {
@@ -110,6 +109,7 @@ function App() {
     // le seteamos el nuevo array "arreglo" y lo ordenamos con el metodo .sort()
     setMostrarTodo(arreglo.sort());
   };
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -120,7 +120,7 @@ function App() {
           </Card>
         </div>
 
-        <CustomInput onChange={onChange} />
+        <CustomInput onChange={onChange} value={todo} />
 
         <Buttons
           handleClickPermiso={handleClickPermiso}
