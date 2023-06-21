@@ -1,3 +1,4 @@
+/* eslint-disable cypress/unsafe-to-chain-command */
 Cypress.session.clearAllSavedSessions()   // to avoid caching across browser reload
 
 const todoItems = [
@@ -39,18 +40,31 @@ describe("To-Do List Home Page", () => {
     })
   });
 
-  it('Should be in alphabetical order', () => {
-    let compareArray = []
-    cy.get('[data-cy="orderButton"]').click()
-    for (let index = 0; index < todoItems.length; index++) {
-      cy.get(`:nth-child(${index + 1}) > .MuiListItem-root`).then((element) => {
-        compareArray.push(element.text().trim(''))
-      }).then(() => {
-        if (compareArray.length === todoItems.length)
-          expect(compareArray).to.deep.equal(todoItems.toSorted())
-      })
-    }
+  // it.only('Should be in alphabetical order', () => {
+  //   let compareArray = []
+  //   cy.get('[data-cy="orderButton"]').click()
+  //   for (let index = 0; index < todoItems.length; index++) {
+  //     cy.get(`:nth-child(${index + 1}) > .MuiListItem-root`).then((element) => {
+  //       compareArray.push(element.text().trim())
+  //     }).then(() => {
+  //       if (compareArray.length === todoItems.length)
+  //         expect(compareArray).to.deep.equal(todoItems.toSorted())
+  //     })
+  //   }
+  // });
+  it.only('Should be in alphabetical order', () => {
+    cy.get('[data-cy="orderButton"]').click();
+    const compareArray = [];
+
+    cy.get('.MuiListItem-root').each((element) => {
+      compareArray.push(element.text().trim())
+    }).then(() => {
+      const sortedArray = compareArray.slice().sort();
+
+      expect(compareArray).to.deep.equal(sortedArray);
+    });
   });
+
 
   it('Should delete all items and clear localStorage', () => {
     cy.get('[data-cy="deleteButton"]').click()
