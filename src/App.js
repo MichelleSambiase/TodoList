@@ -45,6 +45,7 @@ function App() {
   const [todo, setTodo] = useState('');
   const [mostrarTodo, setMostrarTodo] = useState([]);
   const [permiso, setPermiso] = useState(false);
+  const capitalize = todo.charAt(0).toUpperCase() + todo.slice(1)
 
 
   function onChange(e) {
@@ -54,27 +55,19 @@ function App() {
   function handleClickTodo(e) {
     if (e) e.preventDefault();
     if (permiso === true) {
-      setMostrarTodo(mostrarTodo.concat(todo))
+      setMostrarTodo(mostrarTodo.concat(capitalize))
       setTodo('')
-      localStorage.setItem('TodoItems', JSON.stringify(mostrarTodo.concat(todo)))
+      localStorage.setItem('TodoItems', JSON.stringify(mostrarTodo.concat(capitalize)))
     }
   }
 
-  useEffect(() => {
-    const handleEnterKey = (e) => {
-      if (e.code === 'Enter') {
-        handleClickTodo()
-      }
-    };
-
-    document.addEventListener('keydown', handleEnterKey);
-
-    return () => {
-      // Eliminamos el event listener al desmontar el componente
-      document.removeEventListener('keydown', handleEnterKey);
+  const handleEnter = (e) => {
+    if (e.code === "Enter" || e.key === 13) {
+      setMostrarTodo(mostrarTodo.concat(capitalize))
+      setTodo('')
+      localStorage.setItem('TodoItems', JSON.stringify(mostrarTodo.concat(capitalize)))
     }
-  }, []);
-
+  };
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem("TodoItems"))
@@ -88,11 +81,9 @@ function App() {
   }
 
   function handleClickEliminarTodoItem(indice) {
-    if (permiso === true) {
-      setMostrarTodo(
-        mostrarTodo.filter((_elemento, index) => indice !== index)
-      );
-    }
+    setMostrarTodo(
+      mostrarTodo.filter((_elemento, index) => indice !== index)
+    );
   }
 
   function handleClickPermiso() {
@@ -120,7 +111,7 @@ function App() {
           </Card>
         </div>
 
-        <CustomInput onChange={onChange} value={todo} />
+        <CustomInput onChange={onChange} value={todo} onKeyPress={(e) => handleEnter(e)} />
 
         <Buttons
           handleClickPermiso={handleClickPermiso}

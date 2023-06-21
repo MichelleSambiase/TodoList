@@ -1,11 +1,12 @@
 Cypress.session.clearAllSavedSessions()   // to avoid caching across browser reload
 
 const todoItems = [
-  'Agua',
   'Pan',
   'Aceite',
+  'Agua',
+  'Harina',
   'Huevo',
-  'Azúcar'
+  'Pan lactal'
 ]
 
 describe("To-Do List Home Page", () => {
@@ -29,17 +30,26 @@ describe("To-Do List Home Page", () => {
   })
 
   it('Items should be in localStorage', () => {
-    expect(JSON.parse(localStorage.getItem('TodoItems'))).length(5)
+    expect(JSON.parse(localStorage.getItem('TodoItems'))).length(6)
   });
 
   it('Checks todo items', () => {
-    cy.get('[data-cy="listBox"]').each((item, index) => {
-      cy.wrap(item).should('contain.text', todoItems[index])
+    todoItems.forEach(itemList => {
+      cy.get('[data-cy="listBox"]').should('contain.text', itemList)
     })
   });
 
   it('Should be in alphabetical order', () => {
+    let compareArray = []
     cy.get('[data-cy="orderButton"]').click()
+    for (let index = 0; index < todoItems.length; index++) {
+      cy.get(`:nth-child(${index + 1}) > .MuiListItem-root`).then((element) => {
+        compareArray.push(element.text().trim(''))
+      }).then(() => {
+        if (compareArray.length === todoItems.length)
+          expect(compareArray).to.deep.equal(todoItems.toSorted())
+      })
+    }
   });
 
   it('Should delete all items and clear localStorage', () => {

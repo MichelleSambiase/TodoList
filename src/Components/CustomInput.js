@@ -19,6 +19,7 @@ const CustomInput = (props) => {
           placeholder="¡Anota tus tareas!"
           onChange={props.onChange}
           value={props.value}
+          onKeyPress={(e) => props.onKeyPress(e)}
         />
       </div>
     </div>
